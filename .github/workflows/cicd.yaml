@@ -1,0 +1,46 @@
+name: CI/CD
+on: [push, pull_request]
+
+jobs:
+  linter:
+    name: Linter 🚨
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19.4
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run linter
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: v1.50.1
+
+  build:
+    name: Build ⚙️
+    runs-on: ubuntu-22.04
+    needs: linter
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19.4
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Build
+        run: make build
+
+  test:
+    name: Test 🧪
+    runs-on: ubuntu-22.04
+    needs: linter
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19.4
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run tests
+        run: make test

@@ -1,0 +1,10 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "golang api template",
+        "title": "Golang API Template",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {}
+}
